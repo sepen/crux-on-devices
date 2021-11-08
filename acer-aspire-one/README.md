@@ -23,10 +23,14 @@ $ wget https://crux.ninja/i686-iso/crux-3.5-i686.md5
 $ md5sum -c crux-3.5-i686.md5
 ```
 
+### Packages
 
 Select all packages from core, opt and xorg and grub2 as the bootloader
 
 Wait until installation finishes
+
+
+### Kernel
 
 Copy kernel sources from the iso
 ```
@@ -62,6 +66,8 @@ Install kernel files
 # cp System.map /boot/System.map-4.19.112
 ```
 
+### Bootloader
+
 Make symlinks using generic names so that the bootloader auto-discovers the config
 ```
 # cd /boot
@@ -78,17 +84,38 @@ Create grub config file
 
 ## Ports
 
-Configure pkgbuild
+### pkgutils
 
-- Edit /etc/pkgmk.conf to use -j2 in CFLAGS
+Configure pkgbuild to use -j2 in CFLAGS
+```
+$ vim /etc/pkgmk.conf
+```
+
+### ports
 
 Download and install crux-i686 overlay repository
-https://github.com/sepen/crux-i686
+```
+$ sudo wget -P /etc/ports https://raw.githubusercontent.com/sepen/crux-i686/3.5/crux-i686.httpup
+$ sudo ports -u crux-i686
+```
 
-- Add to /etc/ports/crux-i686.httpup and update ports
-- Add to /etc/prt-get.conf as an overlay for all repositories
+Optionally add my ports repository
+```
+$ sudo wget -P /etc/ports https://raw.githubusercontent.com/sepen/crux-ports-sepen/main/sepen.httpup
+$ sudo ports -u sepen
+```
 
-## Xorg
+### prt-get
+
+Add crux-i686 as an overlay for all repositories.
+Optionally add my repository.
+```
+$ vim /etc/prt-get.conf
+```
+
+## Desktop
+
+### Xorg
 
 Activate `tap to click` 
 ```
@@ -102,17 +129,18 @@ Section "InputClass"
 EndSection' | sudo tee /etc/X11/xorg.conf.d/40-libinput.conf
 ```
 
-## Firefox
+### Firefox
 
-It works fine and also you can play youtube videos with low 360p resolution without framerate errors
+ALSA support was dropped starting Firefox 52.0 and later.
 https://support.mozilla.org/en-US/questions/1209469
 
-Apulse comes to the rescue (to avoid pulseaudio)
+I still want to use ALSA and try to avoid pulseaudio as much as possible, so `apulse` comes to the rescue:
 ```
-apulse firefox
+$ sudo prt-get depinst apulse
+$ apulse firefox
 ```
 
-## Openbox
+### Openbox
 
 Install `imlib2` and rebuild `openbox` to have icon support
 ```
@@ -128,14 +156,16 @@ $ sudo prt-get depinst obconf
 Install openbox themes. Then apply a theme you desire using `obconf`
 ```
 $ git clone https://github.com/addy-dclxvi/openbox-theme-collections ~/.config/openbox/themes
+$ obconf
 ```
 
-Configure it to autostart when running `startx` command:
+Auto-start openbox when running `startx` command:
 ```
 $ sudo vim .config/openbox/autostart
 ```
 
-Edit `$HOME/.config/openbox/rc.xml` and add this code block in keyboard section. After this change we'll be able to open the application menu by pressing Windows key:
+Show openbox menu when windows key is pressed.
+Edit `$HOME/.config/openbox/rc.xml` and add this code block:
 ```
 <keybind key="Super_L">
   <action name="ShowMenu">
@@ -144,7 +174,7 @@ Edit `$HOME/.config/openbox/rc.xml` and add this code block in keyboard section.
 </keybind>
 ```
 
-Generate openbox's menu with `obmenu-generator`
+Generate openbox menu with `obmenu-generator`
 ```
 $ sudo prt-get depinst obmenu-generator
 $ obmenu-generator -i > $HOME/.config/openbox/menu.xml
@@ -160,8 +190,17 @@ To add a dynamic menu put only this contents to `$HOME/.config/openbox/menu.xml`
 </openbox_menu>
 ```
 
+### Polybar
+
 Install an eye candy status bar: polybar
 ```
 $ sudo prt-get depinst polybar
 $ vim $HOME/.config/polybar/config
+$ polybar -c ~/.config/polybar/config example
+```
+
+To create a nice config you can use the example provided
+```
+$ cp /usr/share/polybar/config.example ~/.config/polybar/config
+$ polybar -c ~/.config/polybar/config example
 ```
