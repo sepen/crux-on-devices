@@ -1,3 +1,3 @@
-# crux-on-devices
+# CRUX On Devices
 
-CRUX Linux on laptops, netbooks and other devices
+Collection of CRUX Linux installations for laptops, netbooks and other devices that I have

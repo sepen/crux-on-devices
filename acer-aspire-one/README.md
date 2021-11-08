@@ -45,7 +45,7 @@ Uncompress and prepare kernel sources
 # ln -s linux-4.19.112 linux
 ```
 
-Copy kernel config file [config-config-4.19.112](acer-aspire-one/boot/config-4.19.112) 
+Copy kernel config file [config-4.19.112](acer-aspire-one/boot/config-4.19.112) 
 ```
 # wget https://raw.githubusercontent/sepen/crux-on-devices/master/acer-aspire-one/boot/config-4.19.112
 # mv config-4.19.112 /usr/src/linux-4.19.112/.config
@@ -87,9 +87,9 @@ Create grub config file
 ### pkgutils
 
 Configure pkgbuild to use -j2 in CFLAGS
-```
-$ vim /etc/pkgmk.conf
-```
+
+[/etc/pkgmk.conf](acer-aspire-one/etc/pkgmk.conf) 
+
 
 ### ports
 
@@ -99,7 +99,7 @@ $ sudo wget -P /etc/ports https://raw.githubusercontent.com/sepen/crux-i686/3.5/
 $ sudo ports -u crux-i686
 ```
 
-Optionally add my ports repository
+Optionally add my repository to install some ports listed in this doc
 ```
 $ sudo wget -P /etc/ports https://raw.githubusercontent.com/sepen/crux-ports-sepen/main/sepen.httpup
 $ sudo ports -u sepen
@@ -109,13 +109,12 @@ $ sudo ports -u sepen
 
 Add crux-i686 as an overlay for all repositories.
 Optionally add my repository.
-```
-$ vim /etc/prt-get.conf
-```
+[/etc/prt-get.conf](acer-aspire-one/etc/prt-get.conf)
+
 
 ## Desktop
 
-![screenshot](https://raw.githubusercontent.com/sepen/crux-on-devices/master/acer-aspire-one/screenshot.jpg)
+![screenshot](https://raw.githubusercontent.com/sepen/crux-on-devices/master/acer-aspire-one/screenshot.png)
 
 ### Xorg
 
@@ -162,12 +161,10 @@ $ obconf
 ```
 
 Auto-start openbox when running `startx` command:
-```
-$ sudo vim .config/openbox/autostart
-```
+[~/.config/openbox/autostart](acer-aspire-one/home/sepen/.config/openbox/autostart)
 
-Show openbox menu when windows key is pressed.
-Edit `$HOME/.config/openbox/rc.xml` and add this code block:
+Show openbox menu when windows key is pressed,
+Edit [~/.config/openbox/rc.xml](acer-aspire-one/home/sepen/.config/openbox/rc.xml) and add this code block:
 ```
 <keybind key="Super_L">
   <action name="ShowMenu">
@@ -182,7 +179,8 @@ $ sudo prt-get depinst obmenu-generator
 $ obmenu-generator -i > $HOME/.config/openbox/menu.xml
 ```
 
-To add a dynamic menu put only this contents to `$HOME/.config/openbox/menu.xml`
+To add a dynamic menu put only this contents to [~/.config/openbox/menu.xml](acer-aspire-one/home/sepen/.config/openbox/menu.xml)
+
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <openbox_menu xmlns="http://openbox.org/"
