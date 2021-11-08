@@ -1,0 +1,11 @@
+#
+# /etc/mpup.lst
+#
+
+# Add your rsync/httpup commands here:
+#rsync -aqz morpheus.net::cruxports/xorg-font-terminus/ xorg-font-terminus
+#httpup sync http://jue.li/crux/ports/#mupdf mupdf
+
+httpup sync https://raw.githubusercontent.com/ruxr/CRUX/master/#obconf obconf
+
+# End of file

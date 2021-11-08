@@ -1,0 +1,167 @@
+# CRUX on Acer Aspire One ZG5
+
+
+During May'21 I purchased this netbook for 20€ in a 2nd hand market.
+
+This is not a requirement but I upgraded it to 1.5G of RAM, the maximum capacity it allows and added a 120GB SSD disk for better performance.
+
+I have tried Debian 10 on it. It was easy to install. The hardware was detected without problems with the kernel they provided and everything worked fine. In addition there is a huge number of packages available and ready to install and there is no need compile anything.
+
+With some patience you can get a fully functional desktop environment for common daily tasks. It is also capable of playing youtube videos with firefox-esr but sometimes is slower than I expected, so I decided to try CRUX on a second partition.
+Although with CRUX I will need to compile packages, I think it could be interesting to compare performance against Debian 10.
+
+After playing it for some months and get all my stuff working fine I finally decided to switch to CRUX on this device and write a guide. Compared to performance obtained with Debian, with CRUX I managed to get a fully desktop environment and play youtube videos at decent quality (480p) without framedrops.
+
+
+## Installation
+
+Download the last supported version available for this device.
+We have to go for the i686 architecture, so then we will use `CRUX 3.5 i686` which is still alive thanks to Matt Housh (jaeger).
+```
+$ wget https://crux.ninja/i686-iso/crux-3.5-i686.iso
+$ wget https://crux.ninja/i686-iso/crux-3.5-i686.md5
+$ md5sum -c crux-3.5-i686.md5
+```
+
+
+Select all packages from core, opt and xorg and grub2 as the bootloader
+
+Wait until installation finishes
+
+Copy kernel sources from the iso
+```
+# mount -o loop crux-3.5-i686.iso /mnt
+# cp /mnt/crux/kernel/linux-4.19.112.tar.xz /usr/src
+```
+
+Uncompress and prepare kernel sources
+```
+# cd /usr/src
+# tar xf linux-4.19.112.tar.xz
+# ln -s linux-4.19.112 linux
+```
+
+Copy kernel config file [config-config-4.19.112](acer-aspire-one/boot/config-4.19.112) 
+```
+# wget https://raw.githubusercontent/sepen/crux-on-devices/master/acer-aspire-one/boot/config-4.19.112
+# mv config-4.19.112 /usr/src/linux-4.19.112/.config
+```
+
+Build the kernel
+```
+# cd /usr/src/linux-4.19.112
+# make
+```
+
+Install kernel files
+```
+# cd /usr/src/linux-4.19.112
+# make modules_install
+# cp arch/x86/boot/bzImage /boot/vmlinuz-4.19.112
+# cp .config /boot/config-4.19.112
+# cp System.map /boot/System.map-4.19.112
+```
+
+Make symlinks using generic names so that the bootloader auto-discovers the config
+```
+# cd /boot
+# ln -s vmlinuz-4.19.112 vmlinuz
+# ln -s config-4.19.112 config
+# ln -s System.map-4.19.112 System.map
+```
+
+Create grub config file
+```
+# mkdir /boot/grub 
+# grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+## Ports
+
+Configure pkgbuild
+
+- Edit /etc/pkgmk.conf to use -j2 in CFLAGS
+
+Download and install crux-i686 overlay repository
+https://github.com/sepen/crux-i686
+
+- Add to /etc/ports/crux-i686.httpup and update ports
+- Add to /etc/prt-get.conf as an overlay for all repositories
+
+## Xorg
+
+Activate `tap to click` 
+```
+$ echo '# Activate "tap to click" on touchpad
+Section "InputClass"
+	Identifier "libinput touchpad catchall"
+	MatchIsTouchpad "on"
+	MatchDevicePath "/dev/input/event*"
+	Driver "libinput"
+	Option "Tapping" "on"
+EndSection' | sudo tee /etc/X11/xorg.conf.d/40-libinput.conf
+```
+
+## Firefox
+
+It works fine and also you can play youtube videos with low 360p resolution without framerate errors
+https://support.mozilla.org/en-US/questions/1209469
+
+Apulse comes to the rescue (to avoid pulseaudio)
+```
+apulse firefox
+```
+
+## Openbox
+
+Install `imlib2` and rebuild `openbox` to have icon support
+```
+$ sudo prt-get depinst imlib2
+$ sudo prt-get update -fr openbox
+```
+
+Install openbox configuration manager
+```
+$ sudo prt-get depinst obconf
+```
+
+Install openbox themes. Then apply a theme you desire using `obconf`
+```
+$ git clone https://github.com/addy-dclxvi/openbox-theme-collections ~/.config/openbox/themes
+```
+
+Configure it to autostart when running `startx` command:
+```
+$ sudo vim .config/openbox/autostart
+```
+
+Edit `$HOME/.config/openbox/rc.xml` and add this code block in keyboard section. After this change we'll be able to open the application menu by pressing Windows key:
+```
+<keybind key="Super_L">
+  <action name="ShowMenu">
+    <menu>root-menu</menu>
+  </action>
+</keybind>
+```
+
+Generate openbox's menu with `obmenu-generator`
+```
+$ sudo prt-get depinst obmenu-generator
+$ obmenu-generator -i > $HOME/.config/openbox/menu.xml
+```
+
+To add a dynamic menu put only this contents to `$HOME/.config/openbox/menu.xml`
+```
+<?xml version="1.0" encoding="utf-8"?>
+<openbox_menu xmlns="http://openbox.org/"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://openbox.org/">
+    <menu id="root-menu" label="obmenu-generator" execute="/usr/bin/obmenu-generator -i" />
+</openbox_menu>
+```
+
+Install an eye candy status bar: polybar
+```
+$ sudo prt-get depinst polybar
+$ vim $HOME/.config/polybar/config
+```

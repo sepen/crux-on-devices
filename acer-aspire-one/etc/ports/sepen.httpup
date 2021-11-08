@@ -1,0 +1,8 @@
+#
+# /etc/ports/sepen.httpup: Sepen's ports for CRUX Linux
+#
+
+ROOT_DIR=/usr/ports/sepen
+URL=https://raw.githubusercontent.com/sepen/crux-ports-sepen/main/
+
+# End of file

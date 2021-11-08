@@ -1,0 +1,7 @@
+#
+# /etc/ports/meta.mpup: Meta ports collection
+
+ROOT_DIR=/usr/ports/meta
+LIST_FILE=/etc/mpup.lst
+
+# End of file
