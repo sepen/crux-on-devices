@@ -45,7 +45,7 @@ Uncompress and prepare kernel sources
 # ln -s linux-4.19.112 linux
 ```
 
-Copy kernel config file [config-4.19.112](acer-aspire-one/boot/config-4.19.112) 
+Copy kernel config file [config-4.19.112](boot/config-4.19.112)
 ```
 # wget https://raw.githubusercontent/sepen/crux-on-devices/master/acer-aspire-one/boot/config-4.19.112
 # mv config-4.19.112 /usr/src/linux-4.19.112/.config
@@ -88,7 +88,7 @@ Create grub config file
 
 Configure pkgbuild to use -j2 in CFLAGS
 
-[/etc/pkgmk.conf](acer-aspire-one/etc/pkgmk.conf) 
+[/etc/pkgmk.conf](etc/pkgmk.conf)
 
 
 ### ports
@@ -109,7 +109,7 @@ $ sudo ports -u sepen
 
 Add crux-i686 as an overlay for all repositories.
 Optionally add my repository.
-[/etc/prt-get.conf](acer-aspire-one/etc/prt-get.conf)
+[/etc/prt-get.conf](etc/prt-get.conf)
 
 
 ## Desktop
@@ -161,10 +161,10 @@ $ obconf
 ```
 
 Auto-start openbox when running `startx` command:
-[~/.config/openbox/autostart](acer-aspire-one/home/sepen/.config/openbox/autostart)
+[~/.config/openbox/autostart](home/sepen/.config/openbox/autostart)
 
 Show openbox menu when windows key is pressed,
-Edit [~/.config/openbox/rc.xml](acer-aspire-one/home/sepen/.config/openbox/rc.xml) and add this code block:
+Edit [~/.config/openbox/rc.xml](home/sepen/.config/openbox/rc.xml) and add this code block:
 ```
 <keybind key="Super_L">
   <action name="ShowMenu">
@@ -179,7 +179,7 @@ $ sudo prt-get depinst obmenu-generator
 $ obmenu-generator -i > $HOME/.config/openbox/menu.xml
 ```
 
-To add a dynamic menu put only this contents to [~/.config/openbox/menu.xml](acer-aspire-one/home/sepen/.config/openbox/menu.xml)
+Add a dynamic menu by copying this contents to [~/.config/openbox/menu.xml](home/sepen/.config/openbox/menu.xml)
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -192,15 +192,9 @@ To add a dynamic menu put only this contents to [~/.config/openbox/menu.xml](ace
 
 ### Polybar
 
-Install an eye candy status bar: polybar
+Install an eye candy status bar: `polybar`
 ```
 $ sudo prt-get depinst polybar
-$ vim $HOME/.config/polybar/config
-$ polybar -c ~/.config/polybar/config example
-```
-
-To create a nice config you can use the example provided
-```
 $ cp /usr/share/polybar/config.example ~/.config/polybar/config
 $ polybar -c ~/.config/polybar/config example
 ```
