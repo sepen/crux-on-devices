@@ -115,6 +115,8 @@ $ vim /etc/prt-get.conf
 
 ## Desktop
 
+![screenshot](https://raw.githubusercontent.com/sepen/crux-on-devices/master/acer-aspire-one/screenshot.jpg)
+
 ### Xorg
 
 Activate `tap to click` 
