@@ -1,9 +1,9 @@
 # CRUX on Acer Aspire One ZG5
 
+![this-device](https://raw.githubusercontent.com/sepen/crux-on-devices/master/acer-aspire-one/this-device.jpg)
+
 
 ## About this device
-
-![device]()
 
 About May 2021 I bought this device for 20 euros in the second hand market.
 
