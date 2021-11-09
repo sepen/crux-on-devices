@@ -1,16 +1,72 @@
 # CRUX on Acer Aspire One ZG5
 
 
-During May'21 I purchased this netbook for 20€ in a 2nd hand market.
+## About this device
 
-This is not a requirement but I upgraded it to 1.5G of RAM, the maximum capacity it allows and added a 120GB SSD disk for better performance.
+![device]()
 
-I have tried Debian 10 on it. It was easy to install. The hardware was detected without problems with the kernel they provided and everything worked fine. In addition there is a huge number of packages available and ready to install and there is no need compile anything.
+About May 2021 I bought this device for 20 euros in the second hand market.
 
-With some patience you can get a fully functional desktop environment for common daily tasks. It is also capable of playing youtube videos with firefox-esr but sometimes is slower than I expected, so I decided to try CRUX on a second partition.
-Although with CRUX I will need to compile packages, I think it could be interesting to compare performance against Debian 10.
+I upgraded it to 1.5G of RAM, the maximum capacity it allows and added a 120GB SSD disk for better performance.
 
-After playing it for some months and get all my stuff working fine I finally decided to switch to CRUX on this device and write a guide. Compared to performance obtained with Debian, with CRUX I managed to get a fully desktop environment and play youtube videos at decent quality (480p) without framedrops.
+Debian 10 worked fine on it but playing youtube videos is only possible at 360p resolution. while CRUX can run at 480p without framedrops.
+
+## Specification
+
+Media
+* Supported Memory Media: Memory Stick PRO, Multimedia Card (MMC), Secure Digital (SD), xD Picture Card, Memory Stick
+
+Wireless Connections
+* Wireless technology supported: Wireless 802.11b, Wireless 802.11g
+
+Processor
+* Processor: Intel Atom N270
+* Processor Speed: 1.66 Ghz
+
+Audio & Speakers
+* Audio Type: Stereo
+* Number of speakers: 2
+
+Power Options
+* Power Supply
+
+Battery, AC Power
+* Battery Type: Rechargeable - (Li-Ion)
+
+Display
+* Display Technology: TFT
+* Aspect Ratio: 16:09
+* Screen size: 8.9 in
+* Screen Resolution: 1024x600
+
+PC Expansion Slots
+* Expansion Slots: USB
+
+Wired Connections: 
+* Number of USB 2.0 Ports: 3
+* Wired Terminals / Ports: USB 2.0, Microphone Jack , D-Sub, RJ45, Headphone Jack
+
+General
+* Weight without PSU: 900g
+* Other Features: SD Storage Expansion slot
+
+Input Devices
+* Input Devices: Buttons, Touchpad, Keyboard
+
+Multimedia Features
+* Inbuilt Camera: Yes
+* Built-in Microphone: Yes
+
+Memory
+* Maximum memory (RAM): 1.5 GB
+* Installed memory (RAM): 512 MB
+* RAM Type: DDR2
+
+Motherboard
+* Chipset: Intel 945 GM + CH7M
+
+Graphics Card
+* Graphics Processor: Intel GMA 945GMS
 
 
 ## Installation
