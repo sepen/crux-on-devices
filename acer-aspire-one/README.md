@@ -3,7 +3,7 @@
 ![this-device](https://raw.githubusercontent.com/sepen/crux-on-devices/master/acer-aspire-one/this-device.jpg)
 
 
-## About this device
+### About this device
 
 About May 2021 I bought this device for 20 euros in the second hand market.
 
@@ -11,62 +11,21 @@ I upgraded it to 1.5G of RAM, the maximum capacity it allows and added a 120GB S
 
 Debian 10 worked fine on it but playing youtube videos is only possible at 360p resolution. while CRUX can run at 480p without framedrops.
 
-## Specification
+### Specification
 
-Media
-* Supported Memory Media: Memory Stick PRO, Multimedia Card (MMC), Secure Digital (SD), xD Picture Card, Memory Stick
-
-Wireless Connections
-* Wireless technology supported: Wireless 802.11b, Wireless 802.11g
-
-Processor
-* Processor: Intel Atom N270
-* Processor Speed: 1.66 Ghz
-
-Audio & Speakers
-* Audio Type: Stereo
-* Number of speakers: 2
-
-Power Options
-* Power Supply
-
-Battery, AC Power
-* Battery Type: Rechargeable - (Li-Ion)
-
-Display
-* Display Technology: TFT
-* Aspect Ratio: 16:09
-* Screen size: 8.9 in
-* Screen Resolution: 1024x600
-
-PC Expansion Slots
-* Expansion Slots: USB
-
-Wired Connections: 
-* Number of USB 2.0 Ports: 3
-* Wired Terminals / Ports: USB 2.0, Microphone Jack , D-Sub, RJ45, Headphone Jack
-
-General
-* Weight without PSU: 900g
-* Other Features: SD Storage Expansion slot
-
-Input Devices
-* Input Devices: Buttons, Touchpad, Keyboard
-
-Multimedia Features
-* Inbuilt Camera: Yes
-* Built-in Microphone: Yes
-
-Memory
-* Maximum memory (RAM): 1.5 GB
-* Installed memory (RAM): 512 MB
-* RAM Type: DDR2
-
-Motherboard
-* Chipset: Intel 945 GM + CH7M
-
-Graphics Card
+* Processor: Intel Atom N270 1.66 Ghz
+* Motherboard Chipset: Intel 945 GM + CH7M
+* Maximum memory (RAM): 1.5 GB DDR2
 * Graphics Processor: Intel GMA 945GMS
+* Display: TFT 16:09
+* Screen size: 8.9 in
+* 3 x USB 2.0
+* Microphone Jack
+* D-Sub
+* RJ45
+* Headphone Jack
+* Multi-card reader
+* SD slot
 
 
 ## Installation
