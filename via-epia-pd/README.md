@@ -59,7 +59,7 @@ Copy kernel sources from the iso
 ```
 $ sudo mount -o loop var/iso/crux-i586-2.7.iso var/iso/mnt
 $ sudo mount /dev/sda2 var/mnt
-$ sudo cp var/iso/mnt/crux/kernel/linux-2.6.36.7* var/mnt/usr/src
+$ sudo cp var/iso/mnt/crux/kernel/linux-2.6.35.7* var/mnt/usr/src
 $ sudo umount var/mnt /var/iso/mnt
 ```
 
@@ -67,30 +67,30 @@ Uncompress and prepare kernel sources
 ```
 $ scx run /dev/sda2
 # cd /usr/src
-# tar xf linux-2.6.36.7.tar.bz2
-# ln -s linux-2.6.36.7 linux
+# tar xf linux-2.6.35.7.tar.bz2
+# ln -s linux-2.6.35.7 linux
 ```
 
-Copy kernel config file [config-2.6.36.7](boot/config-2.6.36.7)
+Copy kernel config file [config-2.6.35.7](boot/config-2.6.35.7)
 ```
-# wget https://raw.githubusercontent/sepen/crux-on-devices/master/via-epia-pd/boot/config-2.6.36.7
-# mv config-2.6.36.7 /usr/src/linux-2.6.36.7/.config
+# wget https://raw.githubusercontent/sepen/crux-on-devices/master/via-epia-pd/boot/config-2.6.35.7
+# mv config-2.6.36.7 /usr/src/linux-2.6.35.7/.config
 ```
 
 Build the kernel
 ```
-# cd /usr/src/linux-2.6.36.7
+# cd /usr/src/linux-2.6.35.7
 # make
 ```
 
 Install kernel files
 ```
-# cd /usr/src/linux-2.6.36.7
+# cd /usr/src/linux-2.6.35.7
 # make modules_install
-# cp arch/x86/boot/bzImage /boot/vmlinuz-2.6.36.7
+# cp arch/x86/boot/bzImage /boot/vmlinuz-2.6.35.7
 
-# cp .config /boot/config-2.6.36.7
-# cp System.map /boot/System.map-2.6.36.7
+# cp .config /boot/config-2.6.35.7
+# cp System.map /boot/System.map-2.6.35.7
 ```
 
 ### Bootloader
@@ -98,9 +98,9 @@ Install kernel files
 Make symlinks using generic names so that the bootloader auto-discovers the config
 ```
 # cd /boot
-# ln -s vmlinuz-2.6.36.7 vmlinuz
-# ln -s config-2.6.36.7 config
-# ln -s System.map-2.6.36.7 System.map
+# ln -s vmlinuz-2.6.35.7 vmlinuz
+# ln -s config-2.6.35.7 config
+# ln -s System.map-2.6.35.7 System.map
 ```
 
 Create grub config file
