@@ -39,7 +39,7 @@ $ wget http://jue.li/crux/crux-i586/crux-i586-2.7.md5
 $ md5sum -c crux-i586-2.7.md5
 ```
 
-Then you need to create a bootable media (cdrom) and start the installation from it
+Then you need to create the boot media (cdrom) and start the installation from it
 
 Alternatively you can use `safe-crux` to install it on secondary partition with just one command
 ```
