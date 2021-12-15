@@ -27,14 +27,13 @@ $ sudo dd if=ubuntu-18.04.3-4.14-minimal-odroid-xu4-20190910.img of=/dev/sda bs=
 2791309312 bytes (2,8 GB, 2,6 GiB) copied, 744,577 s, 3,7 MB/s
 ```
 
-Attach the eMMC to the device.
-Switch the boot mode to eMMC.
-Connect an HDMI monitor and a keyboard to login via tty.
-Connect network cable if you want to login via ssh (user/pass: root/odroid)
+Prepare everything to boot the image in the device
+* Attach the eMMC to the device.
+* Switch the boot mode to eMMC.
+* Connect network cable to login via ssh (user/pass: root/odroid)
+* (optional) Connect an HDMI monitor and a keyboard to login via tty.
 
-
-Login to odroid shell where we will prepare the SD card for CRUX-ARM.
-
+Connect via SSH to the device and get a shell.
 
 Prepare partitions on the SD card
 ```
@@ -72,7 +71,6 @@ root@odroid:~# mkfs.ext4 -n rootfs /dev/mmcblk1p2
 ```
 
 Install CRUX-ARM to rootfs
-root@odroid:~# safe-crux/safe-crux run /dev/mmcblk1p2
 ```
 root@odroid:~# wget https://resources.crux-arm.nu/releases/3.6/crux-arm-rootfs-3.6-odroidxu4.tar.xz
 root@odroid:~# wget https://resources.crux-arm.nu/releases/3.6/crux-arm-rootfs-3.6-odroidxu4.tar.xz.md5
@@ -82,7 +80,8 @@ root@odroid:~# sudo tar xf crux-arm-rootfs-3.6-odroidxu4.tar.xz -C /mnt
 root@odroid:~# sudo umount /mnt
 ```
 
-I use `safe-crux` to test the rootfs, setup a root password and configure some files
+Test the installation, setup a root password and configure some important files.
+I recommend here to use `safe-crux` for making it easier and faster to deal with chroot.
 ```
 root@odroid:~# apt-get install -y git 
 root@odroid:~# git clone https://github.com/sepen/safe-crux
@@ -99,8 +98,10 @@ bash-5.1# vim /etc/rc.d/net
 bash-5.1# exit
 ```
 
-Time to make the bootloader stuff
-Checkout U-boot source tree from Hardkernel's Github, compile u-boot image and install to SD card
+Build the bootloader stuff.
+
+Checkout `u-boot` source tree from Hardkernel's, compile u-boot image and install to SD card.
+
 Reference: https://wiki.odroid.com/old_product/odroid-xu3/software/building_u-boot
 ```
 root@odroid:~# git clone https://github.com/hardkernel/u-boot.git -b odroidxu4-v2017.05
@@ -111,7 +112,10 @@ root@odroid:~/u-boot/sd_fuse# ./sd_fusing.sh /dev/mmcblk1
 root@odroid:~/u-boot/sd_fuse# cd ~
 ```
 
-Compile kernel stuff. Mount boot and root partitions and copy files to them
+Build the kernel.
+
+Mount boot and root partitions and copy files to them.
+
 Reference: https://wiki.odroid.com/odroid-xu4/software/building_kernel
 ```
 root@odroid:~# apt-get install -y gcc g++ build-essential libssl-dev bc libncurses5-dev
