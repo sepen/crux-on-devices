@@ -133,7 +133,7 @@ Optionally add my repository.
 
 ## Desktop
 
-![screenshot](https://raw.githubusercontent.com/sepen/crux-on-devices/master/acer-aspire-one/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/sepen/crux-on-devices/master/compaq-armada-e500/screenshot.png)
 
 ### Xorg
 
