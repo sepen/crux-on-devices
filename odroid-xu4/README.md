@@ -1,8 +1,20 @@
-## CRUX on Odroid XU4
+# CRUX on Odroid XU4
 
-## About this device
+![this-device](https://raw.githubusercontent.com/sepen/crux-on-devices/master/odroid-xu4/this-device.jpg)
 
-TODO
+
+### About this device
+
+This device was a donation from ReversoLabs to CRUX-ARM and Since then Victor Martinez (aka. pitillo) has been doing a
+very good job supporting and building optimized releases for this device.
+
+As a curiosity, we received 2 units and we had to pay in taxes almost the value of the device itself.
+The package came with a charger and an 8GB eMMC card with Ubuntu pre-installed.
+
+This was a very powerful device for year 2015 and even today it is still a good device.
+It can be used as a server, although its best use would be as a desktop, given the
+graphics chip that it brings. The biggest lack would be not having a wifi device, so
+we will have to use a usb one and have kernel support for it.
 
 ### Specification
 
@@ -15,19 +27,34 @@ TODO
 * HDMI 1.4a
 
 
-### Installation
+## Installation
 
-NOTE: I use an SD card instead the eMMC to install CRUX-ARM. I prefer to keep the eMMC with the original OS Linux provided by the manufacturer. I considered to buy a bigger eMMC (>32G) but for now it is fine to use an SD card since I will use a 32G Sandisk Extreme PRO which has an acceptable performance.
-
-Flash the eMMC with the original image by hardkernel. This system will be used to build CRUX on the SD card.
+In my case I will use the original eMMC as a rescue medium but I started with a fresh installation:
 ```
+$ wget https://odroid.in/ubuntu_18.04lts/XU3_XU4_MC1_HC1_HC2/ubuntu-18.04.3-4.14-minimal-odroid-xu4-20190910.img.xz
+$ wget https://odroid.in/ubuntu_18.04lts/XU3_XU4_MC1_HC1_HC2/ubuntu-18.04.3-4.14-minimal-odroid-xu4-20190910.img.md5sum
+$ unxz ubuntu-18.04.3-4.14-minimal-odroid-xu4-20190910.img.xz
+$ md5sum -c ubuntu-18.04.3-4.14-minimal-odroid-xu4-20190910.img.md5sum
 $ sudo dd if=ubuntu-18.04.3-4.14-minimal-odroid-xu4-20190910.img of=/dev/sda bs=1M conv=fsync
 2662+0 records in
 2662+0 records out
 2791309312 bytes (2,8 GB, 2,6 GiB) copied, 744,577 s, 3,7 MB/s
 ```
 
-Prepare everything to boot the image in the device
+### Native installation on SD card
+
+This installation method is about creating the SD card from the device itself, using the eMMC.
+It is summarized in the following steps:
+1. Boot from eMMC with Ubuntu and network support
+2. Insert the SD card and create the partitions: boot and rootfs
+3. Download the CRUX-ARM release and install on the rootfs partition
+4. Download and compile the kernel natively and installl on the boot partition
+5. Download and compile the bootloader files natively and installl on the boot partition
+
+
+#### 1. Boot from eMMC 
+
+Prepare everything to boot the device from eMMC card
 * Attach the eMMC to the device.
 * Switch the boot mode to eMMC.
 * Connect network cable to login via ssh (user/pass: root/odroid)
@@ -35,7 +62,9 @@ Prepare everything to boot the image in the device
 
 Connect via SSH to the device and get a shell.
 
-Prepare partitions on the SD card
+#### 2. Create SD partitions
+
+Insert the SD card and create partitions on it:
 ```
 root@odroid:~# lsblk 
 NAME         MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
@@ -70,7 +99,9 @@ root@odroid:~# mkfs.vfat -n bootfs /dev/mmcblk1p1
 root@odroid:~# mkfs.ext4 -n rootfs /dev/mmcblk1p2
 ```
 
-Install CRUX-ARM to rootfs
+#### 3. Install CRUX-ARM optimized release 
+
+Install the optimized release for Odroid XU4
 ```
 root@odroid:~# wget https://resources.crux-arm.nu/releases/3.6/crux-arm-rootfs-3.6-odroidxu4.tar.xz
 root@odroid:~# wget https://resources.crux-arm.nu/releases/3.6/crux-arm-rootfs-3.6-odroidxu4.tar.xz.md5
@@ -98,21 +129,7 @@ bash-5.1# vim /etc/rc.d/net
 bash-5.1# exit
 ```
 
-Build the bootloader stuff.
-
-Checkout `u-boot` source tree from Hardkernel's, compile u-boot image and install to SD card.
-
-Reference: https://wiki.odroid.com/old_product/odroid-xu3/software/building_u-boot
-```
-root@odroid:~# git clone https://github.com/hardkernel/u-boot.git -b odroidxu4-v2017.05
-root@odroid:~# cd u-boot
-root@odroid:~/u-boot# make odroid-xu4_defconfig
-root@odroid:~/u-boot# cd sd_fuse
-root@odroid:~/u-boot/sd_fuse# ./sd_fusing.sh /dev/mmcblk1
-root@odroid:~/u-boot/sd_fuse# cd ~
-```
-
-Build the kernel.
+#### 5. Build and install the kernel
 
 Mount boot and root partitions and copy files to them.
 
@@ -134,5 +151,43 @@ root@odroid:~/linux# cp .config /mnt/boot/config-`make kernelrelease`
 root@odroid:~/linux# umount /mnt/boot
 root@odroid:~/linux# umount /mnt
 root@odroid:~/linux# sync
+root@odroid:~/linux# cd ~
 ```
 
+#### 6. Build and install the bootloader stuff
+
+Checkout `u-boot` source tree from Hardkernel's, compile u-boot image and install to SD card.
+
+Reference: https://wiki.odroid.com/old_product/odroid-xu3/software/building_u-boot
+```
+root@odroid:~# git clone https://github.com/hardkernel/u-boot.git -b odroidxu4-v2017.05
+root@odroid:~# cd u-boot
+root@odroid:~/u-boot# make odroid-xu4_defconfig
+root@odroid:~/u-boot# cd sd_fuse
+root@odroid:~/u-boot/sd_fuse# ./sd_fusing.sh /dev/mmcblk1
+root@odroid:~/u-boot/sd_fuse# cd ~
+```
+
+
+## CPU frequency governor
+
+List available scaling governors for each CPU core
+```
+$ ls /sys/devices/system/cpu/cpufreq
+policy0/  policy1/  policy2/  policy3/  policy4/  policy5/  policy6/  policy7/
+
+$ cat /sys/devices/system/cpu/cpufreq/policy{0..7}/scaling_available_governors
+ondemand performance powersave
+ondemand performance powersave
+ondemand performance powersave
+ondemand performance powersave
+ondemand performance powersave
+ondemand performance powersave
+ondemand performance powersave
+ondemand performance powersave
+```
+
+Setup for example `ondemand` governor for all CPU cores
+```
+$ for core in {0..7}; do echo 'ondemand' | sudo tee  /sys/devices/system/cpu/cpufreq/policy${core}/scaling_governor
+```
