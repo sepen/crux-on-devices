@@ -129,7 +129,7 @@ bash-5.1# vim /etc/rc.d/net
 bash-5.1# exit
 ```
 
-#### 5. Build and install the kernel
+#### 4. Build and install the kernel
 
 Mount boot and root partitions and copy files to them.
 
@@ -154,7 +154,7 @@ root@odroid:~/linux# sync
 root@odroid:~/linux# cd ~
 ```
 
-#### 6. Build and install the bootloader stuff
+#### 5. Build and install the bootloader stuff
 
 Checkout `u-boot` source tree from Hardkernel's, compile u-boot image and install to SD card.
 
