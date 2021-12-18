@@ -10,7 +10,7 @@ TODO
 
 ### Specification
 
-* CPU	Pentium MMX at 133 MHz
+* Pentium MMX 133 MHz
 * RAM	16 MB
 * Graphic memory 2 MB
 * Chipset	Toshiba
@@ -19,6 +19,4 @@ TODO
 * Floppy drive 3.5", 1.44 MB
 * Video Chips b65554-tm4080f
 * Sound Yamaha OPL3 ymf715b-s
-
-https://museo.hardlimit.com/ordenador.php?modelo=toshiba-satellite-230cx
 
