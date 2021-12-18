@@ -5,7 +5,7 @@
 
 ### About this device
 
-This device was a donation from ReversoLabs to CRUX-ARM and Since then Victor Martinez (aka. pitillo) has been doing a
+This device was a donation from ReversoLabs to CRUX-ARM and since then my friend Victor Martinez (pitillo) has been doing a
 very good job supporting and building optimized releases for this device.
 
 As a curiosity, we received 2 units and we had to pay in taxes almost the value of the device itself.
