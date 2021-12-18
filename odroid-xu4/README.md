@@ -40,6 +40,14 @@ $ sudo dd if=ubuntu-18.04.3-4.14-minimal-odroid-xu4-20190910.img of=/dev/sda bs=
 2662+0 records out
 2791309312 bytes (2,8 GB, 2,6 GiB) copied, 744,577 s, 3,7 MB/s
 ```
+FILTER_BRANCH_SQUELCH_WARNING=1
+WARNING: git-filter-branch has a glut of gotchas generating mangled history
+         rewrites.  Hit Ctrl-C before proceeding to abort, then use an
+         alternative filtering tool such as 'git filter-repo'
+         (https://github.com/newren/git-filter-repo/) instead.  See the
+         filter-branch manual page for more details; to squelch this warning,
+         set FILTER_BRANCH_SQUELCH_WARNING=1.
+
 
 ### Native installation on SD card
 
