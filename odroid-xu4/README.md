@@ -29,7 +29,7 @@ we will have to use a usb one and have kernel support for it.
 
 ## Installation
 
-In my case I will use the original eMMC as a rescue medium but I started with a fresh installation:
+In my case I will use the original eMMC as a rescue media so I prepared a fresh installation on it:
 ```
 $ wget https://odroid.in/ubuntu_18.04lts/XU3_XU4_MC1_HC1_HC2/ubuntu-18.04.3-4.14-minimal-odroid-xu4-20190910.img.xz
 $ wget https://odroid.in/ubuntu_18.04lts/XU3_XU4_MC1_HC1_HC2/ubuntu-18.04.3-4.14-minimal-odroid-xu4-20190910.img.md5sum
