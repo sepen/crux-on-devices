@@ -1,0 +1,54 @@
+#!/bin/sh
+
+if grep -q devtmpfs /proc/filesystems; then
+
+  # - if /dev is not mounted - mount as a devtmpfs (CONFIG_DEVTMPFS=y)
+  # - if /dev is mounted (e.g. due to handover from initramfs or
+  #   CONFIG_DEVTMPFS_MOUNT=y), remount with specific options
+  # - some video drivers require exec access in /dev, thus it's set here
+  # - for completness, we add few sanity limits (2k non-empty files, 16k inodes)
+
+  UDEVOPTS="exec,nosuid,noatime,mode=0755,nr_blocks=2048,nr_inodes=16384"
+  if /bin/mountpoint -q /dev ; then
+    /bin/mount -n -o remount,${UDEVOPTS} dev /dev
+  else
+    /bin/mount -n -t devtmpfs -o ${UDEVOPTS} dev /dev
+  fi
+
+else
+
+  # populate /dev
+  test -c /dev/console || mknod -m 600 /dev/console c 5 1
+  test -c /dev/null || mknod -m 666 /dev/null c 1 3
+  test -c /dev/ramdom || mknod -m 644 /dev/random c 39 0
+  test -c /dev/urandom || mknod -m 644 /dev/urandom c 39 1
+  test -c /dev/tty || mknod -m 750 /dev/tty c 5 0
+  test -c /dev/tty0 || mknod -m 750 /dev/tty0 c 4 0
+  for i in 1 2 3 4 5 6 7 8; do
+    test -c /dev/tty$i || mknod -m 750 /dev/tty$i c 4 $i
+  done
+  test -b /dev/mmcblk0 || mknod -m 660 /dev/mmcblk0 b 179 0
+  for i in 1 2 3 4; do
+    test -b /dev/mmcblk$i || mknod -m 660 /dev/mmcblk0p$i b 179 $i
+  done
+  test -b /dev/mtdblock || mknod -m 660 /dev/mtdblock b 31 0
+  for i in 1 2 3 4 5 6 7 8; do
+    test -b /dev/mtdblock$i || mknod -m 660 /dev/mtdblock$i b 31 $i
+  done
+
+fi
+
+# mount /run directory
+/bin/mount -n -t tmpfs -o mode=0755,nosuid,nodev,exec tmpfs /run
+
+# copy devices from /lib/udev/devices
+cp -ar /lib/udev/devices/* /dev
+
+# launch udev daemon, make sure it's not running first
+test -z "$(/bin/pidof -s udevd)" && /sbin/udevd --daemon
+
+# coldplug devices and wait for the queue to be processed
+/sbin/udevadm trigger --type=subsystems --action=add
+/sbin/udevadm trigger --type=devices --action=add
+/sbin/udevadm settle
+
