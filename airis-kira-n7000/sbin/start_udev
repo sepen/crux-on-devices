@@ -20,8 +20,10 @@ else
   # populate /dev
   test -c /dev/console || mknod -m 600 /dev/console c 5 1
   test -c /dev/null || mknod -m 666 /dev/null c 1 3
-  test -c /dev/ramdom || mknod -m 644 /dev/random c 39 0
-  test -c /dev/urandom || mknod -m 644 /dev/urandom c 39 1
+  test -c /dev/ramdom || mknod -m 644 /dev/random c 1 8
+  test -c /dev/urandom || mknod -m 644 /dev/urandom c 1 9
+  test -c /dev/zero || mknod -m 644 /dev/zero c 1 5
+  test -c /dev/ptmx || mknod -m 666 /dev/ptmx c 5 2
   test -c /dev/tty || mknod -m 750 /dev/tty c 5 0
   test -c /dev/tty0 || mknod -m 750 /dev/tty0 c 4 0
   for i in 1 2 3 4 5 6 7 8; do
@@ -29,7 +31,7 @@ else
   done
   test -b /dev/mmcblk0 || mknod -m 660 /dev/mmcblk0 b 179 0
   for i in 1 2 3 4; do
-    test -b /dev/mmcblk$i || mknod -m 660 /dev/mmcblk0p$i b 179 $i
+    test -b /dev/mmcblk0p$i || mknod -m 660 /dev/mmcblk0p$i b 179 $i
   done
   test -b /dev/mtdblock || mknod -m 660 /dev/mtdblock b 31 0
   for i in 1 2 3 4 5 6 7 8; do
