@@ -10,10 +10,9 @@ TYPE="static"
 # For "static" connections, specify your settings here:
 # To see your available devices run "ip link".
 #DEV=enp11s0
-DEV="$(grep 'enp.*:' /proc/net/dev || grep 'eth.*:' /proc/net/dev | cut -d':' -fi)"
+DEV=eth0
 #ADDR=192.168.1.100
 ADDR=192.168.18.10
-#MASK=24
 MASK=24
 #GW=192.168.1.1
 GW=192.168.18.1
@@ -50,3 +49,4 @@ case $1 in
 esac
 
 # End of file
+
