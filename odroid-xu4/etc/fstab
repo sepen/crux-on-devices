@@ -5,6 +5,7 @@
 
 /dev/mmcblk0p1         /boot     vfat      defaults                         0      0
 /dev/mmcblk0p2         /         ext4      defaults                         0      1
+/dev/mmcblk1p1         /home     ext4      defaults                         0      2
 #/dev/#EXT4FS_ROOT#    /         ext4      defaults                         0      1
 #/dev/#BTRFS_ROOT#     /         btrfs     defaults                         0      0
 #/dev/#XFS_ROOT#       /         xfs       defaults                         0      0
