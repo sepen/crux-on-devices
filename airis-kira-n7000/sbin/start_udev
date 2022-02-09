@@ -29,6 +29,10 @@ else
   for i in 1 2 3 4 5 6 7 8; do
     test -c /dev/tty$i || mknod -m 750 /dev/tty$i c 4 $i
   done
+  test -b /dev/sda || mknod -m 660 /dev/sda b 8 0
+  for i in 1 2 3 4; do
+    test -b /dev/sda$i || mknod -m 660 /dev/sda$i b 8 $i
+  done
   test -b /dev/mmcblk0 || mknod -m 660 /dev/mmcblk0 b 179 0
   for i in 1 2 3 4; do
     test -b /dev/mmcblk0p$i || mknod -m 660 /dev/mmcblk0p$i b 179 $i

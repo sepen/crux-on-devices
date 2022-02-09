@@ -5,12 +5,20 @@
 
 ### About this device
 
-I bought this device for 5€ in the second hand marketplace.
-It comes with an ancient version of Android pre-installed which didn't work. I upgraded the firmware and it worked fine.
+When I bought this device for 5€ on a craigslist app, it was listed as faulty. The netbook was bricked somehow and
+reinstalling the manufacturer's firmware fixed it. This leaves you on an Android 2.2 not usable nowadays.
 
-This netbook was a gift from a newspaper, so there is hardly any documentation out there, and for this reason, to
-install CRUX-ARM I will use another distro for the boot files and then customize the installation as well as compile
-my own kernel.
+As an CRUX Linux fan I am, I wanted to make this netbook run it, so I started searching the net to see if anybody had
+already made linux possible on it.
+
+This netbook device lacks documentation out there. It's those kinds of digital gifts they give away with newspaper
+subscriptions, so first installation on it will take a bit of work.
+
+The only thing I found was a Debian port for these netbooks, using the kernel from a preinstalled Android distro. This
+Debian port works, but isn't very well optimized, and for example, boot time takes almost 2 long minutes.
+
+So here I will detail the process I have followed to get a base CRUX Linux system running in this netbook, but I will
+skip the kernel build process for now (I'll detail that in a separated document).
 
 ### Specification
 
@@ -35,9 +43,10 @@ my own kernel.
 * Card Reader 3-in-1: SD/MMC/ MS
 * Built-in Touch Pad with 2-way scroll function
 
+
 ## Installation
 
-I need a kernel and the bootloader stuff so I will use Kirbian project as a base to create a custom SD card (>=2GB)
+To boot for the first time we need a kernel and a bootloader stuff so I will use Kirbian as a base to create a custom SD card (>=2GB)
 ```
 $ wget https://phoenixnap.dl.sourceforge.net/project/kirbian/Linux/kirbian_18.1_armhf_minimal.7z
 $ 7z x kirbian_18.1_armhf_minimal.7z
