@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Linux kernel version: 2.6.32.9
-# Tue Feb 12 01:37:26 2013
+# Mon Dec 20 22:39:36 2021
 #
 CONFIG_ARM=y
 CONFIG_HAVE_PWM=y
@@ -49,7 +49,7 @@ CONFIG_TREE_RCU=y
 CONFIG_RCU_FANOUT=32
 # CONFIG_RCU_FANOUT_EXACT is not set
 # CONFIG_TREE_RCU_TRACE is not set
-# CONFIG_IKCONFIG is not set
+CONFIG_IKCONFIG=y
 CONFIG_LOG_BUF_SHIFT=17
 # CONFIG_GROUP_SCHED is not set
 # CONFIG_CGROUPS is not set
@@ -297,7 +297,7 @@ CONFIG_ALIGNMENT_TRAP=y
 #
 CONFIG_ZBOOT_ROM_TEXT=0
 CONFIG_ZBOOT_ROM_BSS=0
-CONFIG_CMDLINE="noinitrd root=/dev/nfs nfsroot=192.168.0.155:/home/zhjun/busybox,proto=tcp,nolock ip=192.168.0.20:192.168.0.155:192.168.0.1:255.255.255.0::eth0:off console=ttySAC2,115200"
+CONFIG_CMDLINE="mem=256M root=/dev/mmcblk0p2 noinitrd console=tty1 console=ttySAC2,115200"
 # CONFIG_XIP_KERNEL is not set
 # CONFIG_KEXEC is not set
 
@@ -456,7 +456,8 @@ CONFIG_RFKILL_INPUT=y
 # Generic Driver Options
 #
 CONFIG_UEVENT_HELPER_PATH="/sbin/hotplug"
-# CONFIG_DEVTMPFS is not set
+CONFIG_DEVTMPFS=y
+# CONFIG_DEVTMPFS_MOUNT is not set
 CONFIG_STANDALONE=y
 CONFIG_PREVENT_FIRMWARE_BUILD=y
 CONFIG_FW_LOADER=y
