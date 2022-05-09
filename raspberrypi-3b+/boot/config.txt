@@ -1,0 +1,2 @@
+#hdmi_drive=2
+disable_overscan=1
