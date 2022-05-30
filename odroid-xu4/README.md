@@ -41,6 +41,9 @@ To summary the steps will be the following:
 5. Download and compile the bootloader files natively and installl on the boot partition
 
 
+### 1. Boot from eMMC
+
+
 In my case I will use the original eMMC as a rescue media so I prepared a fresh installation on it:
 ```
 $ wget https://odroid.in/ubuntu_18.04lts/XU3_XU4_MC1_HC1_HC2/ubuntu-18.04.3-4.14-minimal-odroid-xu4-20190910.img.xz
@@ -53,25 +56,19 @@ $ sudo dd if=ubuntu-18.04.3-4.14-minimal-odroid-xu4-20190910.img of=/dev/sda bs=
 2791309312 bytes (2,8 GB, 2,6 GiB) copied, 744,577 s, 3,7 MB/s
 ```
 
+The idea is to boot Ubuntu and enter through SSH to do the installation. So for it:
 
-### Native installation on SD card
+* Put the eMMC in the device and connect the switch in eMMC mode.
+* Connect a network cable.
+* Boot from the eMMC.
 
-This installation method is about creating the SD card from the device itself, using the eMMC.
-It is summarized in the following steps:
+If everything goes well we can access via ssh (user/pass: root/odroid).
+Optionally you can connect an HDMI monitor and a keyboard to login via TTY.
 
-### 1. Boot from eMMC
-
-Prepare everything to boot the device from eMMC card
-* Attach the eMMC to the device.
-* Switch the boot mode to eMMC.
-* Connect network cable to login via ssh (user/pass: root/odroid)
-* (optional) Connect an HDMI monitor and a keyboard to login via tty.
-
-Connect via SSH to the device and get a shell.
 
 ### 2. Create SD partitions
 
-Insert the SD card and create partitions on it:
+Insert the SD card where you want to install CRUX-ARM and check the name of the device (in my case `mmcblk1`):
 ```
 root@odroid:~# lsblk 
 NAME         MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
