@@ -5,8 +5,8 @@
 
 ### About this device
 
-This device was a donation from ReversoLabs to CRUX-ARM and since then my friend Victor Martinez (pitillo) has been doing a
-very good job supporting and building optimized releases for this device.
+This device was a donation from ReversoLabs to CRUX-ARM and since then my friend Victor Martinez (pitillo)
+has been doing a very good job supporting and building optimized releases for this device.
 
 As a curiosity, we received 2 units and we had to pay in taxes almost the value of the device itself.
 The package came with a charger and an 8GB eMMC card with Ubuntu pre-installed.
@@ -29,6 +29,18 @@ we will have to use a usb one and have kernel support for it.
 
 ## Installation
 
+This installation method is intended to keep the original eMMC and run CRUX-ARM from an SD card.
+
+During the installation we will use a base distro to boot and then complete the steps to install CRUX-ARM inside a chroot environment (steps 3 to 5).
+To summary the steps will be the following:
+
+1. Boot from eMMC with Ubuntu and network support
+2. Insert the SD card and create the partitions: boot and rootfs
+3. Download the CRUX-ARM release and install on the rootfs partition
+4. Download and compile the kernel natively and installl on the boot partition
+5. Download and compile the bootloader files natively and installl on the boot partition
+
+
 In my case I will use the original eMMC as a rescue media so I prepared a fresh installation on it:
 ```
 $ wget https://odroid.in/ubuntu_18.04lts/XU3_XU4_MC1_HC1_HC2/ubuntu-18.04.3-4.14-minimal-odroid-xu4-20190910.img.xz
@@ -40,27 +52,14 @@ $ sudo dd if=ubuntu-18.04.3-4.14-minimal-odroid-xu4-20190910.img of=/dev/sda bs=
 2662+0 records out
 2791309312 bytes (2,8 GB, 2,6 GiB) copied, 744,577 s, 3,7 MB/s
 ```
-FILTER_BRANCH_SQUELCH_WARNING=1
-WARNING: git-filter-branch has a glut of gotchas generating mangled history
-         rewrites.  Hit Ctrl-C before proceeding to abort, then use an
-         alternative filtering tool such as 'git filter-repo'
-         (https://github.com/newren/git-filter-repo/) instead.  See the
-         filter-branch manual page for more details; to squelch this warning,
-         set FILTER_BRANCH_SQUELCH_WARNING=1.
 
 
 ### Native installation on SD card
 
 This installation method is about creating the SD card from the device itself, using the eMMC.
 It is summarized in the following steps:
-1. Boot from eMMC with Ubuntu and network support
-2. Insert the SD card and create the partitions: boot and rootfs
-3. Download the CRUX-ARM release and install on the rootfs partition
-4. Download and compile the kernel natively and installl on the boot partition
-5. Download and compile the bootloader files natively and installl on the boot partition
 
-
-#### 1. Boot from eMMC 
+### 1. Boot from eMMC
 
 Prepare everything to boot the device from eMMC card
 * Attach the eMMC to the device.
@@ -70,7 +69,7 @@ Prepare everything to boot the device from eMMC card
 
 Connect via SSH to the device and get a shell.
 
-#### 2. Create SD partitions
+### 2. Create SD partitions
 
 Insert the SD card and create partitions on it:
 ```
@@ -107,7 +106,7 @@ root@odroid:~# mkfs.vfat -n bootfs /dev/mmcblk1p1
 root@odroid:~# mkfs.ext4 -n rootfs /dev/mmcblk1p2
 ```
 
-#### 3. Install CRUX-ARM optimized release 
+### 3. Install CRUX-ARM optimized release
 
 Install the optimized release for Odroid XU4
 ```
@@ -137,9 +136,13 @@ bash-5.1# vim /etc/rc.d/net
 bash-5.1# exit
 ```
 
-#### 4. Build and install the kernel
+### 4. Build and install the kernel
 
 Mount boot and root partitions and copy files to them.
+
+Compile and install the kernel and bootloader stuff.
+Note that to compile with `-j8` and use all CPU cores you need to add some swap in order to increase
+available memory or compilation may hang the system.
 
 Reference: https://wiki.odroid.com/odroid-xu4/software/building_kernel
 ```
@@ -149,7 +152,7 @@ root@odroid:~# cd linux
 root@odroid:~/linux# make mrproper
 root@odroid:~/linux# make odroidxu4_defconfig
 root@odroid:~/linux# make menuconfig # I disabled sha512-arm and sha256-arm otherwise won't compile
-root@odroid:~/linux# make -j7 # I don't use -j8 because it hangs the system
+root@odroid:~/linux# make -j8 # To use all cores you need to create a swap space in order to increase available RAM, otherwise it will hang the system
 root@odroid:~/linux# mount /dev/mmcblk1p2 /mnt
 root@odroid:~/linux# mount /dev/mmcblk1p1 /mnt/boot
 root@odroid:~/linux# make modules_install INSTALL_MOD_PATH=/mnt
@@ -162,7 +165,7 @@ root@odroid:~/linux# sync
 root@odroid:~/linux# cd ~
 ```
 
-#### 5. Build and install the bootloader stuff
+### 5. Build and install the bootloader stuff
 
 Checkout `u-boot` source tree from Hardkernel's, compile u-boot image and install to SD card.
 
@@ -179,7 +182,9 @@ root@odroid:~/u-boot/sd_fuse# cd ~
 
 ## CPU frequency governor
 
-List available scaling governors for each CPU core
+It is a good idea to configure the working frequency of each CPU core to get a higher consumption efficiency and performance.
+
+To list available scaling governors for each CPU core:
 ```
 $ ls /sys/devices/system/cpu/cpufreq
 policy0/  policy1/  policy2/  policy3/  policy4/  policy5/  policy6/  policy7/
@@ -195,7 +200,7 @@ ondemand performance powersave
 ondemand performance powersave
 ```
 
-Setup for example `ondemand` governor for all CPU cores
+To setup a scaling governor for all CPU cores, for example `ondemand`:
 ```
-$ for core in {0..7}; do echo 'ondemand' | sudo tee  /sys/devices/system/cpu/cpufreq/policy${core}/scaling_governor
+$ for core in {0..7}; do echo 'ondemand' | sudo tee  /sys/devices/system/cpu/cpufreq/policy${core}/scaling_governor; done
 ```
