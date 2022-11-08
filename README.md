@@ -14,4 +14,5 @@ My private collection of CRUX Linux installations for laptops, netbooks and othe
 | [odroid-xu4](odroid-xu4) | 4.14.180+ | CRUX-ARM 3.6 | [odroidxu4-arm](https://github.com/crux-arm/crux-ports-odroidxu4-arm) |
 | [raspberrypi-3b+](raspberrypi-3b+) | 4.10.17-v8 | CRUX-ARM 3.6 | [raspberrypi3-arm](https://github.com/crux-arm/crux-ports-raspberrypi3-arm) |
 | [toshiba-satellite-230cx](toshiba-satellite-230cx) | | | |
+| [sony-xperia-l](sony-xperia-l) | 3.4.0 | CRUX-ARM 3.7 | |
 | [via-epia-pd](via-epia-pd) | 2.6.35.7 | CRUX-3.2 i586 | |
