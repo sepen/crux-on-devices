@@ -13,4 +13,4 @@ My private collection of CRUX Linux installations for laptops, netbooks and othe
 | AArch64 | [raspberrypi-3b+](raspberrypi-3b+) | 4.10.17-v8 | CRUX-ARM 3.6 | [raspberrypi3-arm](https://github.com/crux-arm/crux-ports-raspberrypi3-arm) |
 | i586 | [toshiba-satellite-230cx](toshiba-satellite-230cx) | | | |
 | ARMv7 | [sony-xperia-l](sony-xperia-l) | 3.4.0 | CRUX-ARM 3.7 | |
-| i586 | [via-epia-pd](via-epia-pd) | 2.6.35.7 | CRUX 3.2 i586 | |
+| i586 | [via-epia-pd](via-epia-pd) | 2.6.35.7 | CRUX 2.7 i586 | |
