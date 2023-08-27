@@ -14,12 +14,12 @@ My private collection of CRUX Linux installations for laptops, netbooks and othe
 ## ARM
 | Arch | Device | Kernel Version | OS Version | Ports Overlay |
 | :--- | :----- | :------------- | :--------- | :------------ |
-| AArch64 | [raspberrypi-3b+](raspberrypi-3b+) | 4.10.17-v8 | CRUX-ARM 3.6 | [raspberrypi3-arm](https://github.com/crux-arm/crux-ports-raspberrypi3-arm) |
-| ARMv8 | [odroid-xu4](odroid-xu4) | 4.14.180+ | CRUX-ARM 3.6 | [odroidxu4-arm](https://github.com/crux-arm/crux-ports-odroidxu4-arm) |
-| ARMv7 | [genesi-efikamx](genesi-efikamx) | 2.6.31 | CRUX-ARM 3.2 | [efikamx-arm](https://github.com/crux-arm/crux-ports-efikamx-arm) |
-| ARMv7 | [sony-xperia-l](sony-xperia-l) | 3.4.0 | CRUX-ARM 3.7 | |
-| ARMv6 | [airis-kira-n7000](airis-kira-n7000) | 2.6.32.9 | CRUX-ARM 3.2 | [kira-n7000](https://github.com/sepen/crux-ports-arm-kira-n7000) |
-| ARMv4 | [hp-jornada-720](hp-jornada-720) | 2.6.32 | CRUX-ARM 2.6 noeabi | |
+| aarch64 | [raspberrypi-3b+](raspberrypi-3b+) | 4.10.17-v8 | CRUX-ARM 3.6 aarch64 | [raspberrypi3-arm64](https://github.com/crux-arm/crux-ports-raspberrypi3-arm64) |
+| armv8 | [odroid-xu4](odroid-xu4) | 4.14.180+ | CRUX-ARM 3.6 | [odroidxu4-arm](https://github.com/crux-arm/crux-ports-odroidxu4-arm) |
+| armv7 | [genesi-efikamx](genesi-efikamx) | 2.6.31 | CRUX-ARM 3.2 | [efikamx-arm](https://github.com/crux-arm/crux-ports-efikamx-arm) |
+| armv7 | [sony-xperia-l](sony-xperia-l) | 3.4.0 | CRUX-ARM 3.7 | |
+| armv6 | [airis-kira-n7000](airis-kira-n7000) | 2.6.32.9 | CRUX-ARM 3.2 | [kira-n7000](https://github.com/sepen/crux-ports-arm-kira-n7000) |
+| armv4 | [hp-jornada-720](hp-jornada-720) | 2.6.32 | CRUX-ARM 2.6 noeabi | |
 
 
 
