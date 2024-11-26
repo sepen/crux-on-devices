@@ -2,7 +2,7 @@
 
 My private collection of CRUX Linux installations for laptops, netbooks and other devices
 
-## Intel / AMD
+## Intel / AMD / Epia
 | Arch | Device | Kernel Version | OS Version | Ports Overlay |
 | :--- | :----- | :------------- | :--------- | :------------ |
 | x86_64 | [intel-nuc8i3beh](intel-nuc8i3beh) | 6.1.22 | CRUX 3.7 | |
@@ -14,7 +14,7 @@ My private collection of CRUX Linux installations for laptops, netbooks and othe
 ## ARM
 | Arch | Device | Kernel Version | OS Version | Ports Overlay |
 | :--- | :----- | :------------- | :--------- | :------------ |
-| aarch64 | [raspberrypi-3b+](raspberrypi-3b+) | 4.10.17-v8 | CRUX-ARM 3.6 aarch64 | [raspberrypi3-arm64](https://github.com/crux-arm/crux-ports-raspberrypi3-arm64) |
+| aarch64 | [raspberrypi-3b](raspberrypi-3b) | 4.10.17 | CRUX-ARM 3.6 aarch64 | [raspberrypi3-arm64](https://github.com/crux-arm/crux-ports-raspberrypi3-arm64) |
 | armv8 | [odroid-xu4](odroid-xu4) | 4.14.180+ | CRUX-ARM 3.6 | [odroidxu4-arm](https://github.com/crux-arm/crux-ports-odroidxu4-arm) |
 | armv7 | [genesi-efikamx](genesi-efikamx) | 2.6.31 | CRUX-ARM 3.2 | [efikamx-arm](https://github.com/crux-arm/crux-ports-efikamx-arm) |
 | armv7 | [sony-xperia-l](sony-xperia-l) | 3.4.0 | CRUX-ARM 3.7 | |
