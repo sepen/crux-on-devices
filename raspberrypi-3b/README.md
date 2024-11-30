@@ -1,26 +1,24 @@
-# CRUX on RaspberryPi 3B+
+# CRUX on RaspberryPi 3B
 
 ![this-device](https://raw.githubusercontent.com/sepen/crux-on-devices/master/raspberrypi-3b/this-device.jpg)
 
 
 ### About this device
 
-In 2017 I won this raspberry at the first hackathon of the company I was working for. It was my first 64-bit ARM device.
+I won this raspberry at the first hackathon of the company I was working for around 2017. It was my first 64-bit ARM device.
 
 
 ### Specification
 
-* SoC: Broadcom BCM2837B0 quad-core A53 (ARMv8) 64-bit @ 1.4GHz
-* GPU: Broadcom Videocore-IV
+* SoC: Broadcom BCM2837B0 Quad-Core Cortex-A53 (ARMv8) 64-bit @ 1.2GHz
+* GPU: Broadcom VideoCore IV 400 MHz
 * RAM: 1GB LPDDR2 SDRAM
-* Networking: Gigabit Ethernet (via USB channel), 2.4GHz and 5GHz 802.11b/g/n/ac Wi-Fi
-* Bluetooth: Bluetooth 4.2, Bluetooth Low Energy (BLE)
+* Networking: Fast Ethernet 10/100 Gbps
 * Storage: Micro-SD
 * GPIO: 40-pin GPIO header, populated
 * Full size HDMI
 * 3.5mm analogue audio-video jack
 * 4x USB 2.0
-* 100 Base Ethernet
 * Camera Serial Interface (CSI)
 * Display Serial Interface (DSI)
 
@@ -91,4 +89,4 @@ $ diff -purN /etc/fstab~ /etc/fstab
 ```
 ```
 $ sudo swapon /var/swap
-``` 
+```
