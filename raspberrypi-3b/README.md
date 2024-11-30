@@ -1,6 +1,6 @@
 # CRUX on RaspberryPi 3B
 
-![this-device](https://raw.githubusercontent.com/sepen/crux-on-devices/master/raspberrypi-3b/this-device.jpg)
+<img src="https://raw.githubusercontent.com/sepen/crux-on-devices/master/raspberrypi-3b/this-device.jpg" width="400" />
 
 
 ### About this device
