@@ -27,6 +27,7 @@ I won this raspberry at the first hackathon of the company I was working for aro
 
 Install the optimized release for RaspberryPi 3 (Aarch64)
 
+
 Download required files.
 ```
 $ wget https://master.dl.sourceforge.net/project/crux-arm/releases/3.7/crux-arm-3.7-aarch64-RC1-raspberrypi3.rootfs.tar.xz
@@ -132,7 +133,7 @@ $ sudo wget -P /etc/ports https://raw.githubusercontent.com/sepen/crux-ports-sep
 $ sudo ports -u sepen
 ```
 
-### xdesktop
+### desktop
 
 Install some xorg packages and xterm
 ```
