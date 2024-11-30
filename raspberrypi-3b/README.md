@@ -54,6 +54,7 @@ Device     Boot  Start       End   Sectors  Size Id Type
 $ sudo mkfs.vfat -F 32 /dev/sdb1
 $ sudo mkfs.ext4 /dev/sdb2
 ```
+
 Install all files to SD card
 ```
 $ sudo mount /dev/sdb1 /mnt
@@ -89,4 +90,44 @@ $ diff -purN /etc/fstab~ /etc/fstab
 ```
 ```
 $ sudo swapon /var/swap
+```
+
+Add config.txt
+https://www.raspberrypi.com/documentation/computers/config_txt.html
+```
+$ sudo vim /boot/config.txt
+```
+
+## Ports
+
+### pkgutils
+
+To configure CFLAGS on ARM devices
+```
+$ curl -O https://gist.githubusercontent.com/sepen/4ae1d5e2f7782ba2848ef5806772c7db/raw/044dc807a5719bbe1b8989ed906e7ba11a2a5de9/arminfo.sh
+$ chmod +x arminfo.sh
+$ ./arminfo.sh
+HOSTNAME   rpi3b
+MODEL      unknown
+FEATURES   fp asimd evtstrm crc32
+MACHTYPE   aarch64-unknown-linux-gnu
+CFLAGS     -march=armv8-a+crc -mabi=lp64 -mtune=cortex-a53
+MAKEFLAGS  -j4
+```
+
+Use this information to update [/etc/pkgmk.conf](etc/pkgmk.conf)
+
+
+### ports
+
+Download and install `raspberrypi3b-arm64` repository overlay
+```
+$ sudo wget -P /etc/ports https://raw.githubusercontent.com/sepen/crux-ports-raspberrypi3b-arm64/3.7/raspberrypi3b-arm64.httpup
+$ sudo ports -u raspberrypi3b-arm64
+```
+
+Optionally add my repository to install some ports listed in this doc
+```
+$ sudo wget -P /etc/ports https://raw.githubusercontent.com/sepen/crux-ports-sepen/main/sepen.httpup
+$ sudo ports -u sepen
 ```
