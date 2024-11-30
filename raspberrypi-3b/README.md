@@ -131,3 +131,32 @@ Optionally add my repository to install some ports listed in this doc
 $ sudo wget -P /etc/ports https://raw.githubusercontent.com/sepen/crux-ports-sepen/main/sepen.httpup
 $ sudo ports -u sepen
 ```
+
+### xdesktop
+
+Install some xorg packages and xterm
+```
+$ sudo prt-get depinst xorg-xinit xorg-xrandr xkeyboard-config xorg-xauth
+$ sudo prt-get depinst xorg-xf86-input-evdev xorg-xf86-video-fbdev xterm
+```
+
+### gpu
+
+Reference: https://forums.raspberrypi.com/viewtopic.php?t=223592
+
+Add this line to `/boot/config.txt`
+```
+dtoverlay=vc4-fkms-v3d
+```
+
+Load kernel VideoCoder IV module
+```
+$ sudo modprobe -v vc4
+insmod /lib/modules/4.10.17/kernel/drivers/video/fbdev/core/fb_sys_fops.ko
+insmod /lib/modules/4.10.17/kernel/drivers/video/fbdev/core/sysimgblt.ko
+insmod /lib/modules/4.10.17/kernel/drivers/video/fbdev/core/sysfillrect.ko
+insmod /lib/modules/4.10.17/kernel/drivers/video/fbdev/core/syscopyarea.ko
+insmod /lib/modules/4.10.17/kernel/drivers/gpu/drm/drm.ko
+insmod /lib/modules/4.10.17/kernel/drivers/gpu/drm/drm_kms_helper.ko
+insmod /lib/modules/4.10.17/kernel/drivers/gpu/drm/vc4/vc4.ko
+```
