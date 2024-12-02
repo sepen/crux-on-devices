@@ -141,6 +141,11 @@ $ sudo prt-get depinst xorg-xinit xorg-xrandr xkeyboard-config xorg-xauth
 $ sudo prt-get depinst xorg-xf86-input-evdev xorg-xf86-video-fbdev xterm
 ```
 
+Install some nice to have packages
+```
+sudo prt-get depinst xorg-xdriinfo glu
+```
+
 ### gpu
 
 Reference: https://forums.raspberrypi.com/viewtopic.php?t=223592
@@ -152,12 +157,5 @@ dtoverlay=vc4-fkms-v3d
 
 Load kernel VideoCoder IV module
 ```
-$ sudo modprobe -v vc4
-insmod /lib/modules/4.10.17/kernel/drivers/video/fbdev/core/fb_sys_fops.ko
-insmod /lib/modules/4.10.17/kernel/drivers/video/fbdev/core/sysimgblt.ko
-insmod /lib/modules/4.10.17/kernel/drivers/video/fbdev/core/sysfillrect.ko
-insmod /lib/modules/4.10.17/kernel/drivers/video/fbdev/core/syscopyarea.ko
-insmod /lib/modules/4.10.17/kernel/drivers/gpu/drm/drm.ko
-insmod /lib/modules/4.10.17/kernel/drivers/gpu/drm/drm_kms_helper.ko
-insmod /lib/modules/4.10.17/kernel/drivers/gpu/drm/vc4/vc4.ko
+$ sudo modprobe vc4
 ```
