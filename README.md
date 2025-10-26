@@ -8,7 +8,7 @@ My private collection of CRUX Linux installations for laptops, netbooks and othe
 | x86_64 | [intel-nuc8i3beh](intel-nuc8i3beh) | 6.1.22 | CRUX 3.7 | |
 | i686 | [acer-aspire-one](acer-aspire-one) | 4.9.112 | CRUX 3.5 | [crux-i686](https://github.com/sepen/crux-ports-i686) |
 | i686 | [compaq-armada-e500](compaq-armada-e500) | 4.9.112 | CRUX 3.5 | [crux-i686](https://github.com/sepen/crux-ports-i686) |
-| i586 | [toshiba-satellite-230cx](toshiba-satellite-230cx) | 2.6.35.7 | CRUX 2.7 i586 | |
+| i586 | [toshiba-satellite-230cx](toshiba-satellite-230cx) | 2.6.35.7 | CRUX 2.6 i586 | |
 | i586 | [via-epia-pd](via-epia-pd) | 2.6.35.7 | CRUX 2.7 i586 | |
 
 ## ARM

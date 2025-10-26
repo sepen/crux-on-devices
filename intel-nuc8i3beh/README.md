@@ -1,14 +1,13 @@
 # CRUX on Intel NUC8i3BEH
 
-![this-device](https://raw.githubusercontent.com/sepen/crux-on-devices/master/intel-nuc8i3beh/this-device.jpg)
+<img src="https://raw.githubusercontent.com/sepen/crux-on-devices/master/intel-nuc8i3beh/this-device.jpg" height="400" />
 
 
 ### About this device
 
-TODO
+I bought this device around 2018 with the idea of ​​using it as a controller for ubiquiti AP devices using docker containers and also to play with k8s clusters and develop my [k8kreator](https://github.com/k8kreator) project. After the first test with debian I decided to give it a try with CRUX.
 
-
-### Specification
+### Specifications
 
 Processor
 * Built-in processor: Yes
