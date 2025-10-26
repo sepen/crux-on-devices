@@ -1,4 +1,4 @@
-# CRUX on RaspberryPi 3B
+# CRUX on RaspberryPi 3B+
 
 <img src="https://raw.githubusercontent.com/sepen/crux-on-devices/master/raspberrypi-3b/this-device.jpg" width="400" />
 
@@ -15,7 +15,6 @@
 
 I didn't have to buy this raspberrypi, it was the prize for winning a hackathon at the company I worked for in 2017. Curiously, part of my project was with CRUX-ARM on an EfikaMX and a high-gain Wifi antenna, and I configured it as a mobile device detector, detecting wifi beacons, to count pedestrian traffic around a store. One way or another, the efikamx prepared its own replacement for the raspberrypi.
 
-
 ## Specifications <a name="specifications"></a>
 
 * SoC: Broadcom BCM2837B0 Quad-Core Cortex-A53 (ARMv8) 64-bit @ 1.2GHz
@@ -27,6 +26,7 @@ I didn't have to buy this raspberrypi, it was the prize for winning a hackathon 
 * Full size HDMI
 * 3.5mm analogue audio-video jack
 * 4x USB 2.0
+* 100 Base Ethernet
 * Camera Serial Interface (CSI)
 * Display Serial Interface (DSI)
 
