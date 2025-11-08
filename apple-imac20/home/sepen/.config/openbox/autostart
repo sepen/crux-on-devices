@@ -1,0 +1,9 @@
+# set keyboard map
+setxkbmap es &
+
+# set wallpaper
+feh --bg-fill ~/.config/openbox/wallpaper.jpg &
+
+# set status bar
+polybar >/dev/null 2>&1 &
+#polybar -c ~/.config/polybar/config example > ~/.polybar.log  2>&1 &

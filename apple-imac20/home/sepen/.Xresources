@@ -1,0 +1,50 @@
+! ~/.Xresources
+!
+! Run `xrdb -merge ~/.Xresources` to apply this configuration
+
+! =======================================
+!   Xterm / UXterm configuration
+! =======================================
+
+! --- UTF-8 and locale support ---
+!XTerm*locale: true
+XTerm*utf8: 1
+!XTerm*eightBitInput: false
+!XTerm*metaSendsEscape: true
+XTerm*utf8Title: true
+XTerm*saveLines: 10000
+
+!UXTerm*locale: true
+!UXTerm*utf8: 2
+!UXTerm*useLocale: true
+
+! --- Font (TrueType via Xft) ---
+XTerm*faceName: DejaVu Sans Mono:style=Book
+XTerm*faceSize: 9
+XTerm*allowBoldFonts: true
+
+! --- Colors ---
+! Foreground color: RGB(247,200,124)
+! Background: black, with ~80% opacity (requires compositor)
+XTerm*foreground: rgb:f7/c8/7c
+!XTerm*background: rgba:00/00/00/cc
+XTerm*background: rgb:0/0/0
+
+! --- Cursor settings ---
+XTerm*cursorColor: rgb:f7/c8/7c
+XTerm*cursorBlink: true
+
+! --- Transparency (requires picom/compton) ---
+!XTerm*transparent: true
+
+! --- Scrollbar and layout ---
+XTerm*scrollBar: false
+XTerm*rightScrollBar: false
+XTerm*geometry: 90x30
+XTerm*pointerColor: rgb:f7/c8/7c
+XTerm*borderLess: true
+
+! --- Title and icon ---
+XTerm*title: xterm
+XTerm*iconName: xterm
+
