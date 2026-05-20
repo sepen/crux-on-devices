@@ -1,41 +1,42 @@
-# CRUX on Apple iMac 20
+# CRUX on iMac 20" (A1224 / iMac8,1)
 
 <img src="this-device.png" width="400" />
 
 
 ### About this device
 
-About May 2022 I bought this device for 40 euros in the second hand market.
+In May 2022 I bought this machine on the second-hand market for 45 euros. It came with a common fault on these models: nothing on screen. When the iMac sits upright for years, the original GPU tends to desolder; reballing fixes it for a while but the problem often returns.
 
-The computer had a common defect found in iMacs: the screen only displayed artifacts due to a damaged graphics card. This happens after long periods of use in a vertical position, where the heat causes the GPU chip to slightly detach from its pins downward because of gravity when it gets hot. Fortunately, I was able to replace it with another one that cost less than 15 euros.
+I replaced the graphics card with an **ATI Radeon HD 2600** with 256 MB of RAM (about 25 euros) and it worked straight away. I also swapped the original disk for a **500 GB SSD** and maxed out the RAM at **4 GB SODIMM**.
 
-After that I upgraded it to 4G of RAM and added a 500GB SSD disk for better performance.
-
-The native option is El Capitan, and to be honest, its performance isn’t bad, but many things are starting to become obsolete and no longer receive updates, so it was time to see what I could do with CRUX.
+The native option is **macOS El Capitan** — performance is still acceptable, but much of the stack is obsolete and no longer updated, so it was time to try **CRUX**. The machine now **dual-boots macOS and CRUX 3.8**.
 
 
 ### Specification
 
-iMac 20" (Early 2008, Model A1224)
+iMac 20" (Early 2008, model A1224 / iMac8,1 — EMC 2133 / 2210)
 
-- **Model:** iMac8,1 — EMC 2133 / 2210  
-- **Display:** 20" glossy LCD, 1680×1050 (16:10)  
-- **CPU:** Intel Core 2 Duo 2.4 GHz / 2.66 GHz (Penryn)  
-- **GPU:** ATI Radeon HD 2400 XT (128 MB) / HD 2600 Pro (256 MB)  
-- **RAM:** DDR2-667 MHz, up to 6 GB (2 × SO-DIMM)  
-- **Storage:** 250–320 GB SATA II HDD (upgradeable to SSD)  
-- **Optical:** 8× SuperDrive (DVD±RW DL)  
-- **Wi-Fi:** Broadcom BCM94321 (802.11 a/b/g/n)  
-- **Bluetooth:** 2.1 + EDR  
-- **Ports:** 3× USB 2.0, FW400, FW800, Mini-DVI, Audio I/O  
-- **Power:** 180 W internal PSU  
-- **macOS Support:** 10.5 Leopard → 10.11 El Capitan
-
+* **Processor:** Intel Core 2 Duo E8335 @ 2.66 GHz (2 cores, 2 threads), 6 MB L3
+* **Chipset:** Intel Mobile PM965/GM965 (ICH8M)
+* **Memory:** 4 GB DDR2 SO-DIMM
+* **Graphics:** AMD/ATI Mobility Radeon HD 2600 XT/2700 (RV630), 256 MB (`radeon`)
+* **Display:** Built-in 20" LCD, 1680×1050 @ 60 Hz
+* **Storage:** Samsung SSD 860 500 GB (SATA AHCI, `ahci`)
+* **Optical:** 8× SuperDrive (DVD±RW DL)
+* **Ethernet:** Marvell 88E8058 Gigabit (`sky2`)
+* **Wi-Fi:** Broadcom BCM4321 (`b43-pci-bridge` / `ssb`)
+* **Audio:** Intel HD Audio ICH8 (`snd_hda_intel`)
+* **FireWire:** LSI FW643 1394b (`firewire_ohci`)
+* **USB:** Intel ICH8 UHCI/EHCI (`uhci_hcd`, `ehci-pci`)
+* **Bluetooth:** 2.1 + EDR
+* **Ports:** 3× USB 2.0, FW400, FW800, Mini-DVI, audio I/O
+* **Power:** 180 W internal PSU
+* **macOS support:** 10.5 Leopard → 10.11 El Capitan
 
 
 ## Installation
 
-After proper partitioning, the installation was started from a USB drive with the CRUX 3.8 image, installing all the packages from the core collection and some from opt to enable Wi-Fi (wireless-tools, wpa_supplicant, ...) and EFI boot (grub2-efi, efivar, efibootmgr, ...). With that, I now have a dual-boot setup, keeping macOS El Capitan and CRUX 3.8:
+After proper partitioning, the installation was started from a USB drive with the CRUX 3.8 image, installing all the packages from the core collection and some from opt to enable Wi-Fi (wireless-tools, wpa_supplicant, ...) and EFI boot (grub2-efi, efivar, efibootmgr, ...). Dual-boot layout keeping macOS El Capitan and CRUX 3.8:
 
 Partitions:
 ```shell
@@ -126,6 +127,10 @@ Configure pkgbuild to use -j2 in CFLAGS
 
 ### Xorg
 
+The GPU is handled by the in-kernel **`radeon`** driver (AMD replacement card instead of the stock Intel/ATI soldered on the board).
+
+TBD — `xorg.conf.d`, DDX/modesetting driver, acceleration, and 1680×1050 display tuning.
+
 Activate `tap to click` 
 ```shell
 $ echo '# Activate "tap to click" on touchpad
@@ -137,6 +142,20 @@ Section "InputClass"
 	Option "Tapping" "on"
 EndSection' | sudo tee /etc/X11/xorg.conf.d/40-libinput.conf
 ```
+
+### Wi-Fi (Broadcom b43)
+
+The **BCM4321** (AirPort Extreme) uses the **b43** stack. Proprietary firmware (`b43-firmware` or equivalent from ports) is usually required in addition to the kernel module. Wireless packages were installed during setup (`wireless-tools`, `wpa_supplicant`, ...).
+
+TBD — exact firmware packages and `wpa_supplicant` configuration.
+
+
+### Audio
+
+Intel HD Audio via **`snd_hda_intel`**.
+
+TBD — ALSA mixer, default device, and testing.
+
 
 ### Xterm/UXterm
 
