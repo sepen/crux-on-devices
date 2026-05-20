@@ -76,7 +76,7 @@ Uncompress and prepare kernel sources
 
 Copy kernel config file [config-6.12.23](boot/config-6.12.23)
 ```
-# wget https://raw.githubusercontent/sepen/crux-on-devices/master/apple-imac20/boot/config-6.12.23
+# wget https://raw.githubusercontent.com/sepen/crux-on-devices/master/imac20/boot/config-6.12.23
 # mv config-6.12.23 /usr/src/linux-6.12.23/.config
 ```
 
@@ -111,6 +111,124 @@ Create grub config file and install the bootloader
 # grub-mkconfig -o /boot/grub/grub.cfg
 # grub-install
 ```
+
+
+## Sensors (applesmc)
+
+Temperature sensors and fan control on this iMac go through the **`applesmc`** driver. Enable it in the kernel (`Device Drivers` → `Hardware Monitoring support` → `Apple SMC`):
+
+* built-in: `CONFIG_SENSORS_APPLESMC=y` (as in [config-6.12.23](boot/config-6.12.23))
+* or as a module: `CONFIG_SENSORS_APPLESMC=m`, then load it:
+
+```shell
+$ sudo modprobe applesmc
+```
+
+Check that the option is enabled in the running kernel:
+
+```shell
+$ zgrep -i applesmc /proc/config.gz
+CONFIG_SENSORS_APPLESMC=y
+```
+
+When the driver is active, sysfs exposes fans and temperatures under a path like `/sys/devices/platform/applesmc.768/` (the number after `applesmc` may differ):
+
+```shell
+$ ls /sys/devices/platform/applesmc.768/
+```
+
+Useful files include `temp*_input` / `temp*_label` for sensors and `fan*_input`, `fan*_min`, `fan*_max`, `fan*_manual` for each fan.
+
+**Raise minimum fan speed** (example: fan 1, default min 1000 RPM → 2500 RPM for extra GPU cooling):
+
+```shell
+$ cat /sys/devices/platform/applesmc.768/fan1_min
+1000
+$ echo 2500 | sudo tee /sys/devices/platform/applesmc.768/fan1_min
+```
+
+Values are in RPM. Stay within `fan*_min` / `fan*_max`; changes via sysfs are lost on reboot unless scripted (e.g. `rc.local` or a small oneshot service).
+
+### lm_sensors
+
+For monitoring, install the **`lm_sensors`** port. The kernel must also provide:
+
+* `CONFIG_HWMON=y` (or `=m`) — hardware monitoring framework
+* `CONFIG_I2C_CHARDEV=y` (or `=m`) — `/dev/i2c-*` character devices for sensor detection
+
+Verify on a running system:
+
+```shell
+$ zgrep -E 'CONFIG_HWMON=|CONFIG_I2C_CHARDEV=' /proc/config.gz
+```
+
+[config-6.12.23](boot/config-6.12.23) ships with `CONFIG_HWMON=y`; enable `CONFIG_I2C_CHARDEV` if you rebuild the kernel before relying on `sensors-detect`.
+
+```shell
+$ sudo prt-get depinst lm_sensors
+$ sudo sensors-detect   # answer the prompts; safe defaults are usually fine on this iMac
+$ sensors
+```
+
+Typical output on this iMac (GPU via `radeon`, fans/temps via `applesmc`, CPU via `coretemp`):
+
+```
+radeon-pci-0100
+Adapter: PCI adapter
+temp1:        +55.0 C
+
+applesmc-isa-0300
+Adapter: ISA adapter
+ODD :         998 RPM  (min = 1000 RPM, max = 5100 RPM)
+HDD :        1500 RPM  (min = 1500 RPM, max = 6000 RPM)
+CPU :        2498 RPM  (min = 2500 RPM, max = 3900 RPM)
+TA0P:         +25.2 C
+TC0D:         +38.0 C
+...
+Tp0P:         +71.5 C
+
+coretemp-isa-0000
+Adapter: ISA adapter
+Core 0:       +43.0 C  (crit = +105.0 C)
+Core 1:       +45.0 C  (crit = +105.0 C)
+```
+
+#### fancontrol / pwmconfig (not usable here)
+
+The usual `lm_sensors` fan daemon expects PWM-controlled fans. On this iMac, `applesmc` exposes fan speeds through sysfs (`fan*_min`), not standard PWM chips:
+
+```shell
+$ sudo pwmconfig
+# There are no pwm-capable sensor modules installed
+```
+
+So `pwmconfig` cannot build `/etc/fancontrol`, and `sudo fancontrol` is not an option. Use **`sensors` for read-only monitoring** and a custom script for fan curves.
+
+
+### Fan control script
+
+Script in the repo: [opt/sbin/fancontrol.sh](opt/sbin/fancontrol.sh). It reads applesmc temperatures and writes minimum RPM to each fan every 10 seconds:
+
+| Fan (sensors label) | sysfs | Sensor | Label |
+| :------------------ | :---- | :----- | :---- |
+| ODD | `fan1_min` | `temp10_input` | TO0P (optical drive) |
+| HDD | `fan2_min` | `temp8_input` | TH0P (HDD proximity) |
+| CPU | `fan3_min` | `temp2_input` | TC0D (CPU die) |
+
+Install and start at boot (adjust `BASE` in the script if your `applesmc.*` path differs):
+
+```shell
+$ sudo install -m755 opt/sbin/fancontrol.sh /opt/sbin/fancontrol.sh
+$ echo '/opt/sbin/fancontrol.sh &' | sudo tee -a /etc/rc.local
+$ sudo chmod +x /etc/rc.local
+```
+
+Run manually in the background:
+
+```shell
+$ sudo /opt/sbin/fancontrol.sh &
+```
+
 
 ## Ports
 

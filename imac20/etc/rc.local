@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# /etc/rc.local: local multi-user startup script
+#
+
+/opt/sbin/fancontrol.sh >>/var/log/fancontrol.log 2>&1 &
+
+# End of file
